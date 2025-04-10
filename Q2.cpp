@@ -2,45 +2,49 @@
 
 using namespace std;
 
-int* inputArray();
-int* doubleArray(int*);
-int* copyAlphaBeta(int*, int*);
+const int arrSize = 20;
+const int matrixRow = 10;
+const int matrixCols = 4;
+
+void inputArray(int*);
+void doubleArray(int*, int*);
+void copyAlphaBeta(int*, int*, int[][matrixCols]);
 void printArray(int*);
+void printMatrix(int[][matrixCols]);
+
 
 int main(){
-    int* alpha;
-    int* beta;
-    int* matrix;
+    int alpha[arrSize];
+    int beta[arrSize];
+    int matrix[matrixRow][matrixCols];
 
-    alpha = {inputArray()};
-    beta = {doubleArray(alpha)};
-    matrix = {copyAlphaBeta(alpha, beta)};
+    inputArray(alpha);
+    doubleArray(beta, alpha);
+    copyAlphaBeta(alpha, beta, matrix);
     printArray(alpha);
+    printArray(beta);
+    printMatrix(matrix);
 
     return 0;
 }
 
-int* inputArray(){
-    int* alpha;
-    int number;
+void inputArray(int alpha[]){
+
     cout << "Input 20 numbers: ";
-    for(int i = 0; i < 20; i++){
-        cin >> number;
-        alpha[i] = number;
+    for(int i = 0; i < arrSize; i++){
+        cin >> alpha[i];
     }
-    return alpha;
 }
 
-int* doubleArray(int* beta){
-    int* doubleAlpha;
+void doubleArray(int newArr[], int copyArr[]){
+    
     for(int j = 0; j < 20; j++){
-        doubleAlpha[j] = beta[j] * 2;
+        newArr[j] = copyArr[j] * 2;
     }
-    return doubleAlpha;
+
 }
 
-int** copyAlphaBeta(int* alpha, int* beta){
-    int** matrix;
+void copyAlphaBeta(int alpha[], int beta[], int matrix[][matrixCols]){
     int a = 0;
     int b = 0;
     
@@ -57,12 +61,31 @@ int** copyAlphaBeta(int* alpha, int* beta){
             b++;
         }
     }
-    return matrix;
 }
 
 void printArray(int array[]){
     
-    for(int o = 0; o < 15; o++){
+    for(int o = 0; o < arrSize; o++){
         cout << array[o] << " ";
+        if((o + 1) % 15 == 0){
+            cout << endl;
+        }
     }
+    cout << endl;
+}
+
+void printMatrix(int matrix[][matrixCols]){
+
+    int count = 0;
+
+    for(int p = 0; p < matrixRow; p++){
+        for(int q = 0; q < matrixCols; q++){
+            cout << matrix[p][q] << " ";
+            count++;
+            if((count + 1) % 15 == 0){
+                cout << endl;
+            }
+        }
+    }
+    cout << endl;
 }
